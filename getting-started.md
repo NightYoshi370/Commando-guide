@@ -9,13 +9,11 @@ If you're using Discord.js master, you'll need Commando master, and vice-versa.
 
 Also note that you are going to need at least Node.js version 7.6.0. Download Node [here](https://nodejs.org/en/). If on master, you'll need at least Node 8.
 
-#### Creating Your index.js File
+#### Creating Your index File
 
-While it doesn't have to be called `index.js`, the index file is your main file for your bot, which handles everything from registering new commands to logging in your client. It's quite similar to standard Discord.js in many ways, but there are a few extra steps that need to be done to get your bot up and running.
+The index file is your main file for your bot, which handles everything from registering new commands to logging in your client. There are a few extra steps that need to be done to get your bot up and running compared to discord.js.
 
-First thing is to require Commando. Contrary to what you may think, you do **not** need to require Discord.js to use Commando. That is, unless you are going to use a MessageEmbed, but more on that later.
-
-For now, simply require Commando. We'll also be requiring `path` for use later on. Don't worry, you don't have to install `path`.
+First thing is to require Commando. Unless you will use an embed, you do **not** need to require Discord.js to use Commando. We'll also be requiring `path` for use later on. Don't worry, you don't have to install `path`.
 
 ```js
 const { CommandoClient } = require('discord.js-commando');
@@ -28,22 +26,20 @@ Look familiar? That's just about the same way you required Discord.js in your fi
 const client = new CommandoClient({
     commandPrefix: '<Insert Your Prefix Here>',
     owner: '<Insert Your User ID Here>',
-    disableEveryone: true
+    disableEveryone: true,
+    invite: '<Insert a link here>'
 });
 ```
 
 Looks quite similar to your Discord.js Client doesn't it? Well, aside from all the options and stuff.
 
-In `commandPrefix`, you should insert the prefix you intend to have for your bot. As of writing, you can only have one, so choose wisely! However, note that a mention will **always** be allowed alongside your prefix you set here. In other words, this prefix and mentions are how you will use your bot. **No, there is no way to disable mentions being a prefix!**
+In `commandPrefix`, you'll need to insert the prefix you intend to have for your bot. However, you can also do a user mention for a prefix. Note that this can be changed per-guild if you set the default commands & the administrator of the server types `!prefix <insert your prefix here>`. 
 
-After that is the `owner` field, which should contain the User ID for the owner of the bot. **The user you set here has complete control over the bot, can use eval and other Owner-Only Commands, and ignores command throttling and user permissions!** So, be sure to only give this to yourself.  
-Also, if you installed master earlier, this can also be an array of IDs instead of a single one.
+After that is the `owner` field, which should contain the User ID for the owner of the bot. **The user you set here has complete control over the bot and ignores command throttling and user permissions!** So, be sure to only give this to yourself. If you have multiple owners, you can put it in an array
 
-```js
-owner: ['ID', 'ID']
-```
+The third option, `disableEveryone`, simply prevents the bot from mentioning `@everyone`. This is simply to prevent things from getting annoying. After all, do you want someone mentioning everyone with the bot? Didn't think so.
 
-The final option, `disableEveryone`, simply prevents the bot from mentioning `@everyone`. This is simply to prevent things from getting annoying. After all, do you want someone mentioning everyone with the bot? Didn't think so.
+The final option (`invite`) allows you to specify the link if a user wants to call you, should the bot ever break.
 
 Next we're going to register the command groups, args types, and default commands, and register the commands in a folder called `commands`. You can name the folder whatever you want, but I personally recommend `commands` , as it... Well, it makes the most sense.
 
@@ -128,5 +124,5 @@ client.on('ready', () => {
 client.login('Your Secret Token');
 ```
 
-In the next section, we'll create our first command! How exciting! See you then!
+In the next section, we'll create our first Commando command! How exciting! See you then!
 
